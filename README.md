@@ -7,9 +7,7 @@
 - `ddev start`
 - `ddev composer install`
 - `ddev artisan key:generate`
-3. Import the database dump or generate test data:
-- `ddev import-db --file 'pathToTheDBdump'`
-- `ddev artisan db:seed`
+3. Import database data dump or restore from last db snapshot: `ddev snapshot restore --latest`
 
 
 
