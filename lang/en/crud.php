@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'messages' => [
         'create' => [
@@ -10,5 +12,9 @@ return [
             'success' => 'Entry updated successfully',
             'fail' => 'An error occurred while updating the entry',
         ],
+        'delete' => [
+            'success' => 'Entry deleted successfully',
+            'fail' => 'An error occurred while deleting the entry',
+        ]
     ],
 ];

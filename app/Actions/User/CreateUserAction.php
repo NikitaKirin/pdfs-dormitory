@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions\User;
 
 use App\DTO\User\CreateUserData;
@@ -13,7 +15,8 @@ class CreateUserAction
      */
     public function run(CreateUserData $createUserData): User
     {
-        return User::query()->create([
+        return User::query()->create(
+            [
                 'name' => $createUserData->name,
                 'email' => $createUserData->email,
                 'password' => bcrypt($createUserData->password),
