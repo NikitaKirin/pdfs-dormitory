@@ -16,6 +16,7 @@
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.1",
+        "rakutentech/laravel-request-docs": "^2.26",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
