@@ -18,7 +18,8 @@ class CreateUserCommand extends Command
         $user = User::query()->create([
             'name' => $this->ask('Name'),
             'email' => $this->ask('E-mail'),
-            'password' => $this->ask('Password')
+            'password' => $this->ask('Password'),
+            'is_admin' => true,
         ]);
 
         $this->warn("ID: $user->id");
