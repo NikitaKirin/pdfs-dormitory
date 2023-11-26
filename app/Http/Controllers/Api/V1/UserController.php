@@ -37,7 +37,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request): UserResource|Response
     {
         $validated = $request->validated();
-        $data = new CreateUserData($validated['name'], $validated['email'], $validated['password']);
+        $data = new CreateUserData($validated['name'], $validated['email'], $validated['password'],
+            boolval($validated['is_admin']));
         $user = (new CreateUserAction())->run($data);
         return UserResource::make($user)->additional(['message' => __('crud.messages.create.success')]);
     }
@@ -50,7 +51,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user): UserResource|Response
     {
         $validated = $request->validated();
-        $data = new UpdateUserData($validated['name'], $validated['email']);
+        $data = new UpdateUserData($validated['name'], $validated['email'], boolval($validated['is_admin']));
         (new UpdateUserAction())->run($user, $data);
         return UserResource::make($user)->additional(['message' => __('crud.messages.update.success')]);
     }

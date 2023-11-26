@@ -184,6 +184,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'is_admin' => 'Is admin'
+    ],
 
 ];

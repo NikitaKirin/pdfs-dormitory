@@ -14,6 +14,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', Rule::unique('users')->ignore($this->route('user')), 'max:255'],
+            'is_admin' => ['required', 'boolean'],
         ];
     }
 

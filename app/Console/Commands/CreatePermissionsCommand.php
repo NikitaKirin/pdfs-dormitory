@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Permission;
-use App\Models\Role;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Gate;
 
@@ -21,20 +20,9 @@ class CreatePermissionsCommand extends Command
 
         $this->createPolicyPermissions();
 
-        $this->createAdminRole();
-
         $this->info('Permissions was created successfully!');
 
         return Command::SUCCESS;
-    }
-
-    private function createAdminRole(): void
-    {
-        $role = Role::firstOrCreate([
-            'title' => 'Администратор',
-        ]);
-        $role->permissions()->saveMany(Permission::all());
-        $role->save();
     }
 
     private function createPolicyPermissions(): void

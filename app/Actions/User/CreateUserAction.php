@@ -20,6 +20,7 @@ class CreateUserAction
                 'name' => $createUserData->name,
                 'email' => $createUserData->email,
                 'password' => bcrypt($createUserData->password),
+                'is_admin' => $createUserData->is_admin,
             ]
         );
     }

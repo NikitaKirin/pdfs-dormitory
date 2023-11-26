@@ -39,7 +39,8 @@ trait HasPermissions
      */
     public function hasPermission(string $action, string $model): bool
     {
-        return $this->hasDirectPermission($action, $model)
+        return $this->is_admin
+            || $this->hasDirectPermission($action, $model)
             || $this->hasRolePermissions($action, $model);
     }
 
