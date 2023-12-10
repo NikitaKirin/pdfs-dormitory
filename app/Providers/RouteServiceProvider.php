@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
@@ -34,6 +36,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->as('api.v1.')
                 ->group(function () {
                     require base_path('routes/api/v1/user.php');
+                    require base_path('routes/api/v1/role.php');
                 });
 
             Route::middleware('web')
