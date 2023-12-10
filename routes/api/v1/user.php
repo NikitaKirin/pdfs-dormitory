@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\UserController;
 use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum', 'admin'])->as('users.')->group(function () {
+Route::middleware(['auth:sanctum'])->as('users.')->group(function () {
 
     Route::get('/users', [UserController::class, 'index'])->can('view', User::class)
         ->name('index');

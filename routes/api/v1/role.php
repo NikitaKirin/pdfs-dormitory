@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Models\Role;
+use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth:sanctum', 'admin'])->as('roles.')->group(function () {
+Route::middleware(['auth:sanctum'])->as('roles.')->group(function () {
 
     Route::get('/roles', [RoleController::class, 'index'])->can('view', Role::class)
         ->name('index');
