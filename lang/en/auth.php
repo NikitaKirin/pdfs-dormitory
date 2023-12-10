@@ -8,4 +8,10 @@ return [
         'fail' => 'These credentials do not match our records.',
         'logout' => 'Logout was successful'
     ],
+    'permissions' => [
+        'view' => 'View',
+        'create' => 'Creation',
+        'update' => 'Update',
+        'delete' => 'Deletion',
+    ]
 ];

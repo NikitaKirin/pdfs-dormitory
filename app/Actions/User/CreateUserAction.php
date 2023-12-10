@@ -15,7 +15,7 @@ class CreateUserAction
      */
     public function run(CreateUserData $createUserData): User
     {
-        return User::query()->create(
+        $user = User::query()->create(
             [
                 'name' => $createUserData->name,
                 'email' => $createUserData->email,
@@ -23,5 +23,8 @@ class CreateUserAction
                 'is_admin' => $createUserData->is_admin,
             ]
         );
+        $user->roles()->sync($createUserData->roleIds);
+        $user->permissions()->sync($createUserData->permissionIds);
+        return $user;
     }
 }

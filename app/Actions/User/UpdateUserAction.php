@@ -16,6 +16,8 @@ class UpdateUserAction
      */
     public function run(User $user, UpdateUserData $data): bool
     {
+        $user->roles()->sync($data->roleIds);
+        $user->permissions()->sync($data->permissionIds);
         return $user->update(
             [
                 'name' => $data->name,

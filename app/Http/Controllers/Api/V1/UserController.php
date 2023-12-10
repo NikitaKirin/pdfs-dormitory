@@ -27,7 +27,8 @@ class UserController extends Controller
     public function index(IndexUserRequest $request)
     {
         $validated = $request->validated();
-        return new UserResourceCollection(User::paginate($validated['per_page'] ?? 15));
+        return new UserResourceCollection(User::with(['roles', 'permissions'])
+            ->paginate($validated['per_page'] ?? 15));
     }
 
     /**
@@ -37,9 +38,15 @@ class UserController extends Controller
     public function store(StoreUserRequest $request): UserResource|Response
     {
         $validated = $request->validated();
-        $data = new CreateUserData($validated['name'], $validated['email'], $validated['password'],
-            boolval($validated['is_admin']));
+        $data = new CreateUserData(
+            $validated['name'],
+            $validated['email'],
+            $validated['password'],
+            boolval($validated['is_admin']),
+            $validated['roles'] ?? [],
+            $validated['permissions'] ?? []);
         $user = (new CreateUserAction())->run($data);
+        $user->load(['roles', 'permissions']);
         return UserResource::make($user)->additional(['message' => __('crud.messages.create.success')]);
     }
 
@@ -51,8 +58,15 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user): UserResource|Response
     {
         $validated = $request->validated();
-        $data = new UpdateUserData($validated['name'], $validated['email'], boolval($validated['is_admin']));
+        $data = new UpdateUserData(
+            $validated['name'],
+            $validated['email'],
+            boolval($validated['is_admin']),
+            $validated['roles'] ?? [],
+            $validated['permissions'] ?? [],
+        );
         (new UpdateUserAction())->run($user, $data);
+        $user->load(['roles', 'permissions']);
         return UserResource::make($user)->additional(['message' => __('crud.messages.update.success')]);
     }
 

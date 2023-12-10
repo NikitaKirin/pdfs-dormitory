@@ -15,6 +15,10 @@ class StoreUserRequest extends FormRequest
             'email' => ['required', 'email', 'unique:users', 'max:255'],
             'password' => ['required'],
             'is_admin' => ['required', 'boolean'],
+            'roles' => ['nullable', 'array'],
+            'roles.*' => ['integer', 'exists:roles,id'],
+            'permissions' => ['nullable', 'array'],
+            'permissions.*' => ['integer', 'exists:permissions,id'],
         ];
     }
 
@@ -22,27 +26,4 @@ class StoreUserRequest extends FormRequest
     {
         return true;
     }
-//
-//    /**
-//     * Prepare inputs for validation.
-//     *
-//     * @return void
-//     */
-//    protected function prepareForValidation(): void
-//    {
-//        $this->merge([
-//            'is_admin' => $this->toBoolean($this->is_admin),
-//        ]);
-//    }
-//
-//    /**
-//     * Convert to boolean
-//     *
-//     * @param mixed $booleable
-//     * @return boolean
-//     */
-//    private function toBoolean(mixed $booleable): bool
-//    {
-//        return filter_var($booleable, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-//    }
 }
