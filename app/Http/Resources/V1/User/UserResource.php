@@ -2,11 +2,9 @@
 
 namespace App\Http\Resources\V1\User;
 
-use App\Http\Resources\V1\Permission\PermissionResource;
+use App\Http\Resources\V1\Permission\PermissionResourceCollection;
 use App\Http\Resources\V1\Role\RoleResource;
-use App\Models\Permission;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,19 +26,8 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
-            'permissions' => $this->whenLoaded('permissions', $this->getStructuredPermissionData()),
+            'permissions' => $this->whenLoaded('permissions',
+                PermissionResourceCollection::getStructuredPermissionData($this->permissions->groupBy('model'))),
         ];
-    }
-
-    protected function getStructuredPermissionData(): array
-    {
-        return $this->permissions->groupBy('model')->collect()
-            ->mapWithKeys(function (Collection $permissions, string $modelName) {
-                return [
-                    __('model.' . $modelName) => $permissions->map(function (Permission $permission) {
-                        return new PermissionResource($permission);
-                    }),
-                ];
-            })->toArray();
     }
 }
