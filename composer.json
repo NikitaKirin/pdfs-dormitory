@@ -12,12 +12,13 @@
         "laravel/tinker": "^2.8"
     },
     "require-dev": {
+        "dedoc/scramble": "^0.8.5",
+        "doctrine/dbal": "^3.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/telescope": "^4.17",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.1",
-        "rakutentech/laravel-request-docs": "^2.26",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
