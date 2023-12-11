@@ -18,7 +18,10 @@ class VerifyCsrfToken extends Middleware
 
     public function handle($request, Closure $next)
     {
-        if (config('app.env') === 'local' && stripos($request->header('Referer'), 'request-docs')) {
+        if (config('app.env') === 'local'
+            && stripos($request->header('Referer'), 'docs/api')
+            && $request->header('X-XSRF-TOKEN') === config('app.rest_api_docs_key')
+        ) {
             return $next($request);
         }
         return parent::handle($request, $next);
