@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\Role;
+use App\Models\Student;
 use App\Models\User;
 use App\Policies\RolePolicy;
+use App\Policies\StudentPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -21,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         //
         User::class => UserPolicy::class,
         Role::class => RolePolicy::class,
+        Student::class => StudentPolicy::class,
     ];
 
     /**
