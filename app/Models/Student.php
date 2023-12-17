@@ -29,7 +29,7 @@ class Student extends Model
      */
     public function gender(): BelongsTo
     {
-        return $this->belongTo(Gender::class);
+        return $this->belongsTo(Gender::class);
     }
 
     /**
@@ -46,5 +46,13 @@ class Student extends Model
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function dormRooms(): BelongsToMany
+    {
+        return $this->belongsToMany(DormRoom::class);
     }
 }

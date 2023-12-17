@@ -55,4 +55,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Student::class, 'creator_id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function updatedStudents(): HasMany
+    {
+        return $this->hasMany(Student::class, 'last_update_user_id');
+    }
 }

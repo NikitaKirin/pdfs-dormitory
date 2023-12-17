@@ -18,4 +18,12 @@ class Dormitory extends Model
         'address',
         'comment',
     ];
+
+    /**
+     * @return void
+     */
+    public function dormRooms(): void
+    {
+        $this->hasMany(DormRoom::class);
+    }
 }

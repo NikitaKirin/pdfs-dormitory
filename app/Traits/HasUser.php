@@ -5,10 +5,6 @@ namespace App\Traits;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-/*
- * @method belongsTo
- */
-
 trait HasUser
 {
     /**
@@ -16,7 +12,7 @@ trait HasUser
      */
     public function creator(): BelongsTo
     {
-        return $this->belongTo(User::class, 'creator_id');
+        return $this->belongsTo(User::class, 'creator_id');
     }
 
     /**
@@ -24,6 +20,6 @@ trait HasUser
      */
     public function lastUpdateUser(): BelongsTo
     {
-        return $this->belongTo(User::class, 'last_update_user_id');
+        return $this->belongsTo(User::class, 'last_update_user_id');
     }
 }

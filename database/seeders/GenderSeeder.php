@@ -8,8 +8,8 @@ use Illuminate\Database\Seeder;
 class GenderSeeder extends Seeder
 {
     private array $genders = [
-        'Male',
-        'Female',
+        'male',
+        'female',
     ];
 
     public function run(): void
