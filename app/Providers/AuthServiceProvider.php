@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Dormitory;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
+use App\Policies\DormitoryPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\StudentPolicy;
 use App\Policies\UserPolicy;
@@ -20,10 +22,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
         User::class => UserPolicy::class,
         Role::class => RolePolicy::class,
         Student::class => StudentPolicy::class,
+        Dormitory::class => DormitoryPolicy::class,
     ];
 
     /**
