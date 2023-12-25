@@ -26,9 +26,11 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'is_admin' => $this->is_admin,
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
-            'permissions' => $this->whenLoaded('permissions',
-                PermissionResourceCollection::getStructuredPermissionData($this->permissions->groupBy('model'))),
+            'permissions' => PermissionResourceCollection::getStructuredPermissionData(
+                $this->whenLoaded('permissions', default: collect())
+            ),
         ];
     }
 }
