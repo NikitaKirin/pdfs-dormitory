@@ -29,7 +29,7 @@ class UserResource extends JsonResource
             'is_admin' => $this->is_admin,
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
             'permissions' => PermissionResourceCollection::getStructuredPermissionData(
-                $this->whenLoaded('permissions', default: collect())
+                $this->whenLoaded('permissions', $this->permissions ?? collect())
             ),
         ];
     }
