@@ -6,7 +6,6 @@ use App\Traits\HasUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
@@ -49,10 +48,10 @@ class Student extends Model
     }
 
     /**
-     * @return BelongsToMany
+     * @return BelongsTo
      */
-    public function dormRooms(): BelongsToMany
+    public function dormRoom(): BelongsTo
     {
-        return $this->belongsToMany(DormRoom::class);
+        return $this->belongsTo(DormRoom::class);
     }
 }

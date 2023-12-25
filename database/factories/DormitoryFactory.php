@@ -15,7 +15,7 @@ class DormitoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'number' => rand(1, 17),
+            'number' => $this->faker->unique()->randomDigit(),
             'address' => $this->faker->address(),
             'comment' => $this->faker->word(),
             'creator_id' => User::all()->random()->id,

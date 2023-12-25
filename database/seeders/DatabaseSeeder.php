@@ -21,8 +21,11 @@ class DatabaseSeeder extends Seeder
         User::factory(15)->create();
         Country::factory(30)->create();
         AcademicGroup::factory(30)->create();
-        Student::factory(1000)->create();
         Dormitory::factory(3)->create();
         DormRoom::factory(500)->create();
+        // For excluding multiply inserting. Its breaks logic of dorm rooms conditions
+        for ($i = 0; $i <= 500; $i++) {
+            Student::factory(1)->create();
+        }
     }
 }

@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Traits\HasUser;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DormRoom extends Model
@@ -14,6 +15,7 @@ class DormRoom extends Model
     use SoftDeletes;
     use HasUser;
     use HasFactory;
+
     protected $fillable = [
         'number',
         'number_of_seats',
@@ -21,11 +23,11 @@ class DormRoom extends Model
     ];
 
     /**
-     * @return BelongsToMany
+     * @return HasMany
      */
-    public function students(): BelongsToMany
+    public function students(): HasMany
     {
-        return $this->belongsToMany(Student::class);
+        return $this->hasMany(Student::class);
     }
 
     /**
@@ -34,5 +36,26 @@ class DormRoom extends Model
     public function dormitory(): BelongsTo
     {
         return $this->belongsTo(Dormitory::class);
+    }
+
+    /**
+     * @param Builder $query
+     * @param int $genderId
+     * @return void
+     */
+    public function scopeOfGender(Builder $query, int $genderId): void
+    {
+        $query->whereHas('students', function (Builder $builder) use ($genderId) {
+            $builder->where('is_family', false)->where('gender_id', $genderId);
+        })->orDoesntHave('students');
+    }
+
+    /**
+     * @param Builder $query
+     * @return void
+     */
+    public function scopeOfFamily(Builder $query): void
+    {
+        $query->whereRelation('students', 'is_family',true)->orDoesntHave('students');
     }
 }
