@@ -4,6 +4,7 @@ namespace App\Http\Resources\V1\Student;
 
 use App\Http\Resources\V1\AcademicGroup\AcademicGroupResource;
 use App\Http\Resources\V1\Country\CountryResource;
+use App\Http\Resources\V1\DormRoom\DormRoomResource;
 use App\Http\Resources\V1\Gender\GenderResource;
 use App\Http\Resources\V1\User\UserResource;
 use App\Models\Student;
@@ -30,6 +31,7 @@ class StudentResource extends JsonResource
             'last_update_user_id' => UserResource::make($this->whenLoaded('lastUpdateUser')),
             'country' => CountryResource::make($this->whenLoaded('country')),
             'academic_group' => AcademicGroupResource::make($this->whenLoaded('academicGroup')),
+            'dorm_room' => DormRoomResource::make($this->whenLoaded('dormRoom')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

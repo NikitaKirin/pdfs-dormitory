@@ -21,6 +21,12 @@ class Student extends Model
         'telephone',
         'eisu_id',
         'comment',
+        'creator_id',
+        'last_update_user_id',
+        'country_id',
+        'academic_group_id',
+        'gender_id',
+        'dorm_room_id',
     ];
 
     /**

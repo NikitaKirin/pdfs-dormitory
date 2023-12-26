@@ -157,6 +157,10 @@ return [
     'uuid' => 'The :attribute field must be a valid UUID.',
     'available_number_of_seats' => 'The number of seats cannot be less than the number of students already ' .
                                     'accommodated at a given time.',
+    'occupied_dorm_room' => 'There are no free places left in this dorm room.',
+    'telephone_format' => 'The phone number must be indicated in the format: +7 (ХХХ) ХХХ-ХХ-XX',
+    'latin_name_format' => 'The name must be in Latin. Acceptable characters are space and dash.',
+    'cyrillic_name_format' => 'The name must be in Cyrillic. Acceptable characters are space and dash.',
 
     /*
     |--------------------------------------------------------------------------

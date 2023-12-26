@@ -34,7 +34,7 @@ class StudentFactory extends Factory
             'latin_name' => $latinName,
             'cyrillic_name' => $cyrillicName,
             'is_family' => $isFamily,
-            'telephone' => $this->faker->numerify('+7 (###)-###-##'),
+            'telephone' => $this->faker->numerify('+7 (###) ###-##'),
             'eisu_id' => Str::random(20),
             'comment' => $this->faker->realTextBetween(10, 40),
             'gender_id' => $genderId,
