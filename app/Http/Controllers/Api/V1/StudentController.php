@@ -27,7 +27,7 @@ class StudentController extends Controller
     {
         $builder = Student::with(['country', 'academicGroup', 'creator', 'lastUpdateUser', 'gender']);
         if ($request->get('with_dormitory')) {
-            $builder->with('dormRooms.dormitory');
+            $builder->with('dormRoom.dormitory');
         }
         return new StudentResourceCollection($builder->paginate(
             $request->validated('per_page') ?? 15
