@@ -28,9 +28,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'is_admin' => $this->is_admin,
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
-            'permissions' => PermissionResourceCollection::getStructuredPermissionData(
-                $this->whenLoaded('permissions', $this->permissions ?? collect())
-            ),
+            'permissions' => PermissionResourceCollection::getStructuredPermissionData($this->whenLoaded('permissions')),
         ];
     }
 }

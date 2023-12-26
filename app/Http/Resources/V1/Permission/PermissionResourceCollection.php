@@ -5,6 +5,7 @@ namespace App\Http\Resources\V1\Permission;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Support\Collection;
 
 /** @see Permission */
@@ -18,8 +19,11 @@ class PermissionResourceCollection extends ResourceCollection
         ];
     }
 
-    public static function getStructuredPermissionData(Collection $collection): array
+    public static function getStructuredPermissionData(Collection|MissingValue $collection): array|MissingValue
     {
+        if ($collection instanceof MissingValue) {
+            return $collection;
+        }
         return $collection
             ->mapWithKeys(function (Collection $permissions, string $modelName) {
                 return [
