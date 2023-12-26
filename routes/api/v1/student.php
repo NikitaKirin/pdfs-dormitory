@@ -5,7 +5,8 @@ use App\Models\Student;
 
 Route::middleware(['auth:sanctum'])->as('students.')->prefix('students')->group(function () {
 
-    Route::get('/', [StudentController::class, 'index'])->can('view')->name('index');
+    Route::get('/', [StudentController::class, 'index'])->can('view', Student::class)
+        ->name('index');
 
     Route::post('/', [StudentController::class, 'store'])->can('create', Student::class)
         ->name('index');
