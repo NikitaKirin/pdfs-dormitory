@@ -155,6 +155,8 @@ return [
     'url' => 'The :attribute field must be a valid URL.',
     'ulid' => 'The :attribute field must be a valid ULID.',
     'uuid' => 'The :attribute field must be a valid UUID.',
+    'available_number_of_seats' => 'The number of seats cannot be less than the number of students already ' .
+                                    'accommodated at a given time.',
 
     /*
     |--------------------------------------------------------------------------
@@ -185,7 +187,9 @@ return [
     */
 
     'attributes' => [
-        'is_admin' => 'Is admin'
+        'is_admin' => 'Is admin',
+        'number_of_seats' => 'Number os seats',
+        'comment' => 'Comment',
     ],
 
 ];

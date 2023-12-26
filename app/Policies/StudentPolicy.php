@@ -10,7 +10,7 @@ class StudentPolicy
 {
     use HandlesAuthorization;
 
-    public function view(User $user, Student $student): bool
+    public function view(User $user): bool
     {
         return $user->hasPermission('view', Student::class);
     }

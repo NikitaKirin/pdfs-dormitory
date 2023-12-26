@@ -2,10 +2,15 @@
 
 namespace App\Http\Resources\V1\Student;
 
+use App\Http\Resources\V1\AcademicGroup\AcademicGroupResource;
+use App\Http\Resources\V1\Country\CountryResource;
+use App\Http\Resources\V1\Gender\GenderResource;
+use App\Http\Resources\V1\User\UserResource;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\Student */
+/** @mixin Student */
 class StudentResource extends JsonResource
 {
     public static $wrap = 'student';
@@ -20,11 +25,11 @@ class StudentResource extends JsonResource
             'telephone' => $this->telephone,
             'eisu_id' => $this->eisu_id,
             'comment' => $this->comment,
-            'gender' => $this->whenLoaded('gender', __('gender.' . $this->gender->title)),
-            'creator' => $this->whenLoaded('creator', $this->creator->name),
-            'last_update_user_id' => $this->whenLoaded('lastUpdateUser', $this->lastUpdateUser->name),
-            'country' => $this->whenLoaded('country', $this->country->title),
-            'academic_group' => $this->whenLoaded('academicGroup', $this->academicGroup->title),
+            'gender' => GenderResource::make($this->whenLoaded('gender')),
+            'creator' => UserResource::make($this->whenLoaded('creator')),
+            'last_update_user_id' => UserResource::make($this->whenLoaded('lastUpdateUser')),
+            'country' => CountryResource::make($this->whenLoaded('country')),
+            'academic_group' => AcademicGroupResource::make($this->whenLoaded('academicGroup')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
