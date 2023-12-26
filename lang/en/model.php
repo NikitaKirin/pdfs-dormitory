@@ -1,9 +1,13 @@
 <?php
 
+use App\Models\Dormitory;
 use App\Models\Role;
+use App\Models\Student;
 use App\Models\User;
 
 return [
     User::class => 'User',
     Role::class => 'Role',
+    Dormitory::class => 'Dormitory',
+    Student::class => 'Student',
 ];
