@@ -42,7 +42,7 @@ class DormitoryController extends Controller
             $request->validated('number'),
             $request->validated('address'),
             $request->validated('comment'),
-            creatorID: Auth::user()->id,
+            creatorId: Auth::id(),
         );
         $dormitory = (new CreateDormitoryAction())->run($data);
         return DormitoryResource::make($dormitory)->additional(['message' => __('crud.messages.create.success')]);

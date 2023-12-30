@@ -13,8 +13,8 @@ class CreateDormitoryAction
             'number' => $data->number,
             'address' => $data->address,
             'comment' => $data->comment,
-            'creator_id' => $data->creator_id,
-            'last_update_user_id' => $data->creator_id,
+            'creator_id' => $data->creatorId,
+            'last_update_user_id' => $data->creatorId,
         ]);
     }
 }
