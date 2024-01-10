@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasUser;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -59,5 +60,27 @@ class Student extends Model
     public function dormRoom(): BelongsTo
     {
         return $this->belongsTo(DormRoom::class);
+    }
+
+    public function scopeOfLatinName(Builder $query, string $latinName) {
+        $query->where('latin_name', 'ilike', "%$latinName%");
+    }
+
+    public function scopeOfCyrillicName(Builder $query, string $cyrillicName) {
+        $query->where('latin_name', 'ilike', "%$cyrillicName%");
+    }
+
+    public function scopeOfCountries(Builder $query, array $countries)
+    {
+        $query->whereHas('country', function (Builder $query) use ($countries) {
+           $query->whereIntegerInRaw('id', $countries);
+        });
+    }
+
+    public function scopeOfGender(Builder $query, int $genderId)
+    {
+        $query->whereHas('gender', function (Builder $query) use ($genderId) {
+            $query->where('id', $genderId);
+        });
     }
 }

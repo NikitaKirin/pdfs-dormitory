@@ -29,6 +29,17 @@ class StudentController extends Controller
         if ($request->get('with_dormitory')) {
             $builder->with('dormRoom.dormitory');
         }
+        $builder->ofLatinName($request->get('latin_name', ''));
+        $builder->ofCyrillicName($request->get('cyrillic_name', ''));
+        if ($genderId = $request->get('gender_id')){
+            $builder->ofGender($genderId);
+        }
+        if ($countries = $request->get('countries')) {
+            $builder->ofCountries($countries);
+        }
+        if ($sortBy = $request->get('sort_by')) {
+            $builder->orderBy($sortBy['column'], $sortBy['direction']);
+        }
         return new StudentResourceCollection($builder->paginate(
             $request->validated('per_page') ?? 15
         ));
