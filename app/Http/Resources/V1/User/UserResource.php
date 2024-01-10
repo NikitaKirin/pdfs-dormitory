@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\V1\User;
 
-use App\Http\Resources\V1\Permission\PermissionResourceCollection;
+use App\Http\Resources\V1\Permission\PermissionResource;
 use App\Http\Resources\V1\Role\RoleResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,7 +28,10 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'is_admin' => $this->is_admin,
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
-            'permissions' => PermissionResourceCollection::getStructuredPermissionData($this->whenLoaded('permissions')),
+            /**
+             * @var array<PermissionResource> these granted to the user directly without roles
+             */
+            'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
         ];
     }
 }

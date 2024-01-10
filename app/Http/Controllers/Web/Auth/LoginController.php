@@ -23,7 +23,7 @@ class LoginController extends Controller
             return response(
                 [
                     'message' => __('auth.messages.success'),
-                    'user' => UserResource::make(Auth::user()->load(['roles', 'permissions']))
+                    'user' => UserResource::make(Auth::user()->load(['roles.permissions', 'permissions']))
                 ], 200);
         }
 

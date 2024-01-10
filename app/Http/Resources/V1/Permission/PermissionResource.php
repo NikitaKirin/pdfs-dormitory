@@ -16,6 +16,7 @@ class PermissionResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => __('auth.permissions.' . $this->action),
+            'model' =>  __('model.' . $this->model),
         ];
     }
 }

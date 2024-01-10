@@ -46,7 +46,7 @@ class UserController extends Controller
             $validated['roles'] ?? [],
             $validated['permissions'] ?? []);
         $user = (new CreateUserAction())->run($data);
-        $user->load(['roles', 'permissions']);
+        $user->load(['roles.permissions', 'permissions']);
         return UserResource::make($user)->additional(['message' => __('crud.messages.create.success')]);
     }
 
@@ -66,7 +66,7 @@ class UserController extends Controller
             $validated['permissions'] ?? [],
         );
         (new UpdateUserAction())->run($user, $data);
-        $user->load(['roles', 'permissions']);
+        $user->load(['roles.permissions', 'permissions']);
         return UserResource::make($user)->additional(['message' => __('crud.messages.update.success')]);
     }
 
