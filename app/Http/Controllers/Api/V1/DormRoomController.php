@@ -46,6 +46,12 @@ class DormRoomController extends Controller
                 'students' => ['academicGroup', 'country', 'gender']
             ]);
         }
+        if ($number = $request->get('number')) {
+            $query->ofNumber($number);
+        }
+        if ($sortBy = $request->get('sort_by')) {
+            $query->orderBy($sortBy['column'], $sortBy['direction']);
+        }
         $query->withCount('students');
         return new DormRoomResourceCollection($query->paginate($request->validated('per_page', 15)));
     }

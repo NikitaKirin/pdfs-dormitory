@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\DormRoom;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class IndexDormRoomRequest extends FormRequest
 {
@@ -15,6 +16,13 @@ class IndexDormRoomRequest extends FormRequest
             'is_family' => ['nullable', 'bool', 'exclude_with:gender_id'],
             'gender_id' => ['nullable', 'int', 'exists:genders,id', 'exclude_with:is_family'],
             'with_students' => ['nullable', 'bool'],
+            'number' => ['nullable', 'integer'],
+            /**
+             * @example sort_by[column]=number&sort_by[direction]=asc
+             */
+            'sort_by' => ['nullable', 'array:column,direction', 'size:2'],
+            'sort_by.column' => ['string', Rule::in(['number'])],
+            'sort_by.direction' => ['string', Rule::in(['asc', 'desc'])]
         ];
     }
 

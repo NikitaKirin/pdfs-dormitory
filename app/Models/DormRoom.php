@@ -72,4 +72,9 @@ class DormRoom extends Model
     {
         $query->has('students', '<', DB::raw('"dorm_rooms"."number_of_seats"'));
     }
+
+    public function scopeOfNumber(Builder $query, int $number): void
+    {
+        $query->where('number', 'ilike', "%$number%");
+    }
 }
