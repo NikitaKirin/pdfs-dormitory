@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasUser;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -28,5 +29,15 @@ class Dormitory extends Model
     public function dormRooms(): HasMany
     {
         return $this->hasMany(DormRoom::class);
+    }
+
+    public function scopeOfNumber(Builder $query, int $number): void
+    {
+        $query->where('number', 'ilike', "%$number%");
+    }
+
+    public function scopeOfAddress(Builder $query, string $address): void
+    {
+        $query->where('address', 'ilike', "%$address%");
     }
 }

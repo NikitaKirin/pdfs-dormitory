@@ -29,6 +29,15 @@ class DormitoryController extends Controller
         if ($request->validated('with_user_info')) {
             $query->with(['creator', 'lastUpdateUser']);
         }
+        if ($number = $request->get('number')) {
+           $query->ofNumber($number);
+        }
+        if ($address = $request->get('address')) {
+            $query->ofAddress($address);
+        }
+        if ($sortBy = $request->get('sort_by')) {
+            $query->orderBy($sortBy['column'], $sortBy['direction']);
+        }
         return new DormitoryResourceCollection($query->paginate($request->validated('per_page') ?? 15));
     }
 
