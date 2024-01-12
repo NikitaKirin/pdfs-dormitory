@@ -62,18 +62,20 @@ class Student extends Model
         return $this->belongsTo(DormRoom::class);
     }
 
-    public function scopeOfLatinName(Builder $query, string $latinName) {
+    public function scopeOfLatinName(Builder $query, string $latinName): void
+    {
         $query->where('latin_name', 'ilike', "%$latinName%");
     }
 
-    public function scopeOfCyrillicName(Builder $query, string $cyrillicName) {
-        $query->where('latin_name', 'ilike', "%$cyrillicName%");
+    public function scopeOfCyrillicName(Builder $query, string $cyrillicName): void
+    {
+        $query->where('cyrillic_name', 'ilike', "%$cyrillicName%");
     }
 
     public function scopeOfCountries(Builder $query, array $countries)
     {
         $query->whereHas('country', function (Builder $query) use ($countries) {
-           $query->whereIntegerInRaw('id', $countries);
+            $query->whereIntegerInRaw('id', $countries);
         });
     }
 
