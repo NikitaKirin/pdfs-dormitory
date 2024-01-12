@@ -27,7 +27,7 @@ class UserController extends Controller
     public function index(IndexUserRequest $request)
     {
         $validated = $request->validated();
-        return new UserResourceCollection(User::with(['roles', 'permissions'])
+        return new UserResourceCollection(User::with(['roles.permissions', 'permissions'])
             ->paginate($validated['per_page'] ?? 15));
     }
 
