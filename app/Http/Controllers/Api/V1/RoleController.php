@@ -24,7 +24,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return new RoleResourceCollection(Role::all());
+        return new RoleResourceCollection(Role::with(['permissions'])->get());
     }
 
     /**
