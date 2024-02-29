@@ -36,7 +36,7 @@ class RoleController extends Controller
         $validated = $request->validated();
         $data = new CreateRoleData($validated['title'], $validated['permissions'] ?? []);
         $role = (new CreateRoleAction())->run($data);
-        return RoleResource::make($role)->additional(['message' => __('crud.messages.create.success')]);
+        return RoleResource::make($role->load(['permissions']))->additional(['message' => __('crud.messages.create.success')]);
     }
 
     /**
@@ -49,7 +49,7 @@ class RoleController extends Controller
         $validated = $request->validated();
         $data = new UpdateRoleData($validated['title'], $validated['permissions'] ?? []);
         (new UpdateRoleAction())->run($role, $data);
-        return RoleResource::make($role)->additional(['message' => __('crud.messages.update.success')]);
+        return RoleResource::make($role->load(['permissions']))->additional(['message' => __('crud.messages.update.success')]);
     }
 
 
