@@ -16,32 +16,33 @@ class StudentFactory extends Factory
 {
     protected $model = Student::class;
 
+    public function configure(): static
+    {
+        return $this->afterMaking(function (Student $student) {
+            $query = DormRoom::withCount('students');
+            $availableDormRooms = ($student->is_family)
+                ? $query->ofFamily(true)->notOccupied()->orderBy('students_count', 'DESC')->get()
+                : $query->ofGender($student->gender_id)->ofFamily(false)->notOccupied()
+                    ->orderBy('students_count', 'DESC')->get();
+            $student->dorm_room_id = ($availableDormRooms->count()) ? $availableDormRooms->random()->id : null;
+        });
+    }
+
     public function definition(): array
     {
         $cyrillicName = $this->faker->name();
         $latinName = Str::title(Str::slug($cyrillicName, ' '));
-        $isFamily = $this->faker->boolean();
-        $genderId = Gender::all()->random()->id;
-        $dormRooms = ($isFamily)
-            ? DormRoom::withCount('students')->ofFamily()
-                ->orderBy('students_count', 'DESC')->get()
-            : DormRoom::withCount('students')->ofGender($genderId)
-                ->orderBy('students_count', 'DESC')->get();
-        $dormRooms = $dormRooms->filter(
-            fn(DormRoom $dormRoom) => $dormRoom->students_count < $dormRoom->number_of_seats
-        );
         return [
             'latin_name' => $latinName,
             'cyrillic_name' => $cyrillicName,
-            'is_family' => $isFamily,
-            'telephone' => $this->faker->numerify('+7 (###) ###-##'),
+            'is_family' => $this->faker->boolean(),
+            'telephone' => $this->faker->numerify('+7 (###) ###-##-##'),
             'eisu_id' => Str::random(20),
             'comment' => $this->faker->realTextBetween(10, 40),
-            'gender_id' => $genderId,
+            'gender_id' => Gender::all()->random()->id,
             'creator_id' => User::all()->random()->id,
             'last_update_user_id' => User::all()->random()->id,
-            'dorm_room_id' => ($dormRooms->count()) ? $dormRooms->random()->id : null,
-                'created_at' => Carbon::now(),
+            'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
             'country_id' => Country::all()->random()->id,

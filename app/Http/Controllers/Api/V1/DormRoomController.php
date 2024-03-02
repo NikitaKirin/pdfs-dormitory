@@ -29,11 +29,11 @@ class DormRoomController extends Controller
      */
     public function index(IndexDormRoomRequest $request, Dormitory $dormitory)
     {
-        $query = DormRoom::where('dormitory_id', $dormitory->id);
+        $query = DormRoom::where('dormitory_id', $dormitory->id)
+            ->ofFamily($request->boolean('is_family'))
+            ->withCount('students');
         if ($genderId = $request->validated('gender_id')) {
             $query->ofGender($genderId);
-        } elseif ($request->validated('is_family')) {
-            $query->ofFamily();
         }
         if ($request->validated('only_available_dorm_rooms')) {
             $query->notOccupied();
@@ -52,7 +52,6 @@ class DormRoomController extends Controller
         if ($sortBy = $request->get('sort_by')) {
             $query->orderBy($sortBy['column'], $sortBy['direction']);
         }
-        $query->withCount('students');
         return new DormRoomResourceCollection($query->paginate($request->validated('per_page', 15)));
     }
 

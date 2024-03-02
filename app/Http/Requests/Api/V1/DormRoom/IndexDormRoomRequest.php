@@ -13,8 +13,8 @@ class IndexDormRoomRequest extends FormRequest
             'per_page' => ['nullable', 'int'],
             'with_user_info' => ['nullable', 'bool'],
             'only_available_dorm_rooms' => ['nullable', 'bool'],
-            'is_family' => ['nullable', 'bool', 'exclude_with:gender_id'],
-            'gender_id' => ['nullable', 'int', 'exists:genders,id', 'exclude_with:is_family'],
+            'is_family' => ['nullable', 'bool'],
+            'gender_id' => ['nullable', 'int', 'exists:genders,id'],
             'with_students' => ['nullable', 'bool'],
             'number' => ['nullable', 'integer'],
             /**

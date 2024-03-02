@@ -50,18 +50,20 @@ class DormRoom extends Model
     public function scopeOfGender(Builder $query, int $genderId): void
     {
         $query->whereHas('students', function (Builder $builder) use ($genderId) {
-            $builder->where('is_family', '=', false)->where('gender_id', $genderId);
-        })->orDoesntHave('students');
+            $builder->where('gender_id', '=', $genderId);
+        });
     }
 
     /**
      * @param Builder $query
+     * @param bool $isFamily
      * @return void
      */
-    public function scopeOfFamily(Builder $query): void
+    public function scopeOfFamily(Builder $query, bool $isFamily): void
     {
-        $query->whereRelation('students', 'is_family', '=', true)
-            ->orDoesntHave('students');
+        $query->whereDoesntHave('students', function (Builder $builder) use ($isFamily) {
+            $builder->where('is_family', '<>', $isFamily);
+        });
     }
 
     /**
@@ -70,7 +72,7 @@ class DormRoom extends Model
      */
     public function scopeNotOccupied(Builder $query): void
     {
-        $query->has('students', '<', DB::raw('"dorm_rooms"."number_of_seats"'));
+        $query->has('students', '<', DB::raw(sprintf('"%s"."number_of_seats"', $this->getTable())));
     }
 
     public function scopeOfNumber(Builder $query, int $number): void
