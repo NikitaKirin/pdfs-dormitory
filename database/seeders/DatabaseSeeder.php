@@ -17,7 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(GenderSeeder::class);
+        $this->call([
+            GenderSeeder::class,
+            SettlementStatusSeeder::class,
+        ]);
         User::factory(15)->create();
         Country::factory(30)->create();
         AcademicGroup::factory(30)->create();
