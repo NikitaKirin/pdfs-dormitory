@@ -19,4 +19,10 @@ Route::middleware(['auth:sanctum'])->as('students.')->prefix('students')->group(
 
     Route::delete('{student}/destroy', [StudentController::class, 'destroy'])
         ->can('delete', Student::class)->name('delete');
+
+    Route::patch('{student}/settle', [StudentController::class, 'settle'])
+        ->can('update', Student::class)->name('settle');
+
+    Route::patch('{student}/evict', [StudentController::class, 'evict'])
+        ->can('update', Student::class)->name('evict');
 });

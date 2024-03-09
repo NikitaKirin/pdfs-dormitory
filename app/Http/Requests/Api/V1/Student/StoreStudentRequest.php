@@ -28,7 +28,6 @@ class StoreStudentRequest extends FormRequest
             'country_id' => ['nullable', 'exists:countries,id'],
             'gender_id' => ['nullable', 'exists:genders,id'],
             'academic_group_id' => ['nullable', 'exists:academic_groups,id'],
-            'dorm_room_id' => ['nullable', 'exists:dorm_rooms,id', new AvailableDormRoomRule()],
         ];
     }
 

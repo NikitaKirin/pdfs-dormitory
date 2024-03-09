@@ -28,7 +28,6 @@ class CreateStudentData
         public readonly ?int    $genderId,
         public readonly ?int    $academicGroupId,
         public readonly int     $creator_id,
-        public readonly ?int    $dormRoomId,
     )
     {
     }

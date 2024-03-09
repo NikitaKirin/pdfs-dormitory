@@ -8,17 +8,25 @@ use App\DTO\Student\CreateStudentData;
 use App\DTO\Student\UpdateStudentData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Student\IndexStudentRequest;
+use App\Http\Requests\Api\V1\Student\SettleStudentRequest;
 use App\Http\Requests\Api\V1\Student\StoreStudentRequest;
 use App\Http\Requests\Api\V1\Student\UpdateStudentRequest;
 use App\Http\Resources\V1\Student\StudentResource;
 use App\Http\Resources\V1\Student\StudentResourceCollection;
 use App\Models\Student;
+use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
+
+    public function __construct(
+        protected readonly StudentService $studentService
+    ) {}
+
     /**
      * @param IndexStudentRequest $request
      * @return StudentResourceCollection
@@ -31,7 +39,7 @@ class StudentController extends Controller
         }
         $builder->ofLatinName($request->get('latin_name', ''));
         $builder->ofCyrillicName($request->get('cyrillic_name', ''));
-        if ($genderId = $request->get('gender_id')){
+        if ($genderId = $request->get('gender_id')) {
             $builder->ofGender($genderId);
         }
         if ($countries = $request->get('countries')) {
@@ -62,9 +70,8 @@ class StudentController extends Controller
             $request->validated('gender_id'),
             $request->validated('academic_group_id'),
             Auth::id(),
-            $request->validated('dorm_room_id'),
         );
-        $student = (new CreateStudentAction())->run($data);
+        $student = $this->studentService->create($data);
         return StudentResource::make($student->load(['gender', 'country', 'academicGroup', 'dormRoom']))
             ->additional(['message' => __('crud.messages.create.success')]);
     }
@@ -87,9 +94,8 @@ class StudentController extends Controller
             $request->validated('gender_id'),
             $request->validated('academic_group_id'),
             Auth::id(),
-            $request->validated('dorm_room_id'),
         );
-        if ((new UpdateStudentAction())->run($data, $student)) {
+        if ($this->studentService->update($data, $student)) {
             return StudentResource::make($student->load(['gender', 'country', 'academicGroup', 'dormRoom']))
                 ->additional(['message' => __('crud.messages.update.success')]);
         }
@@ -118,5 +124,21 @@ class StudentController extends Controller
             return response(['message' => __('crud.messages.delete.success'),]);
         }
         return response(['message' => __('crud.messages.delete.fail')], 409);
+    }
+
+    public function settle(SettleStudentRequest $request, Student $student)
+    {
+        if ($this->studentService->settle($student, $request->integer('dorm_room_id'))) {
+            return response(['message' => __('student.messages.settle.success')]);
+        };
+        return response(['message' => __('student.messages.settle.fail')], 304);
+    }
+
+    public function evict(Request $request, Student $student)
+    {
+        if ($this->studentService->evict($student)) {
+            return response(['message' => __('student.messages.evict.success')]);
+        };
+        return response(['message' => __('student.messages.evict.fail')], 304);
     }
 }

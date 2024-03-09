@@ -28,7 +28,6 @@ class UpdateStudentData
         public readonly ?int    $genderId,
         public readonly ?int    $academicGroupId,
         public readonly int     $lastUpdateUserId,
-        public readonly ?int    $dormRoomId,
     )
     {
     }
