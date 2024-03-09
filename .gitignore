@@ -6,6 +6,7 @@
 /public/request-docs
 /public/vendor
 /storage/*.key
+/storage/pail
 /vendor
 .env
 .env.backup

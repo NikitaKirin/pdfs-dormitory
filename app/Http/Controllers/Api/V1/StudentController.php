@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Actions\Student\CreateStudentAction;
-use App\Actions\Student\UpdateStudentAction;
 use App\DTO\Student\CreateStudentData;
 use App\DTO\Student\UpdateStudentData;
+use App\Events\Student\StudentEvicted;
+use App\Events\Student\StudentSettled;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Student\IndexStudentRequest;
 use App\Http\Requests\Api\V1\Student\SettleStudentRequest;
@@ -13,6 +13,7 @@ use App\Http\Requests\Api\V1\Student\StoreStudentRequest;
 use App\Http\Requests\Api\V1\Student\UpdateStudentRequest;
 use App\Http\Resources\V1\Student\StudentResource;
 use App\Http\Resources\V1\Student\StudentResourceCollection;
+use App\Models\DormRoom;
 use App\Models\Student;
 use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
@@ -129,6 +130,7 @@ class StudentController extends Controller
     public function settle(SettleStudentRequest $request, Student $student)
     {
         if ($this->studentService->settle($student, $request->integer('dorm_room_id'))) {
+            StudentSettled::dispatch($student, DormRoom::findOrFail($request->integer('dorm_room_id')));
             return response(['message' => __('student.messages.settle.success')]);
         };
         return response(['message' => __('student.messages.settle.fail')], 304);
@@ -136,7 +138,9 @@ class StudentController extends Controller
 
     public function evict(Request $request, Student $student)
     {
+        $dormRoomId = $student->dorm_room_id;
         if ($this->studentService->evict($student)) {
+            StudentEvicted::dispatch($student, DormRoom::findOrFail($dormRoomId));
             return response(['message' => __('student.messages.evict.success')]);
         };
         return response(['message' => __('student.messages.evict.fail')], 304);

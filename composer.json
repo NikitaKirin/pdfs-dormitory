@@ -8,6 +8,7 @@
         "laravel-lang/http-statuses": "^3.6",
         "laravel-lang/lang": "^13.6",
         "laravel/framework": "^10.10",
+        "laravel/pail": "^1.1",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8"
     },

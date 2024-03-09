@@ -72,14 +72,14 @@ class Student extends Model
         $query->where('cyrillic_name', 'ilike', "%$cyrillicName%");
     }
 
-    public function scopeOfCountries(Builder $query, array $countries)
+    public function scopeOfCountries(Builder $query, array $countries): void
     {
         $query->whereHas('country', function (Builder $query) use ($countries) {
             $query->whereIntegerInRaw('id', $countries);
         });
     }
 
-    public function scopeOfGender(Builder $query, int $genderId)
+    public function scopeOfGender(Builder $query, int $genderId): void
     {
         $query->whereHas('gender', function (Builder $query) use ($genderId) {
             $query->where('id', $genderId);

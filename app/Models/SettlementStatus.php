@@ -9,6 +9,10 @@ class SettlementStatus extends Model
 {
     public $timestamps = false;
 
+    public const CHECK_IN = 'check-in';
+
+    public const CHECK_OUT = 'check-out';
+
     protected $fillable = [
         'title',
     ];
