@@ -43,6 +43,7 @@ class RouteServiceProvider extends ServiceProvider
                     require base_path('/routes/api/v1/gender.php');
                     require base_path('/routes/api/v1/country.php');
                     require base_path('/routes/api/v1/academicGroup.php');
+                    require base_path('/routes/api/v1/settlementHistory.php');
                 });
 
             Route::middleware('web')

@@ -21,10 +21,10 @@ class StudentEventSubscriber
     public function handleStudentSettled(StudentSettled $event): void
     {
         $data = new SettlementHistoryData(
-            $event->student,
-            $event->dormRoom,
-            SettlementStatus::where('title', 'ilike', SettlementStatus::CHECK_IN)->first(),
-            Auth::user(),
+            $event->student->id,
+            $event->dormRoom->id,
+            SettlementStatus::where('title', 'ilike', SettlementStatus::CHECK_IN)->first()->id,
+            Auth::id(),
             Carbon::now(),
         );
         $this->settlementHistoryService->addNewRecord($data);
@@ -33,10 +33,10 @@ class StudentEventSubscriber
     public function handleStudentEvicted(StudentEvicted $event): void
     {
         $data = new SettlementHistoryData(
-            $event->student,
-            $event->dormRoom,
-            SettlementStatus::where('title', 'ilike', SettlementStatus::CHECK_OUT)->first(),
-            Auth::user(),
+            $event->student->id,
+            $event->dormRoom->id,
+            SettlementStatus::where('title', 'ilike', SettlementStatus::CHECK_OUT)->first()->id,
+            Auth::user()->id,
             Carbon::now(),
         );
         $this->settlementHistoryService->addNewRecord($data);

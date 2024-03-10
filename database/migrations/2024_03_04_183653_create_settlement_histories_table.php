@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->foreignId('settlement_status_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
             $table->timestampTz('created_at');
+            $table->softDeletes();
         });
     }
 

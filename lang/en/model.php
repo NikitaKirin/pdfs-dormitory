@@ -2,6 +2,7 @@
 
 use App\Models\Dormitory;
 use App\Models\Role;
+use App\Models\SettlementHistory;
 use App\Models\Student;
 use App\Models\User;
 
@@ -10,4 +11,5 @@ return [
     Role::class => 'Role',
     Dormitory::class => 'Dormitory',
     Student::class => 'Student',
+    SettlementHistory::class => 'SettlementHistory',
 ];
