@@ -25,7 +25,8 @@ class IndexStudentRequest extends FormRequest
              */
             'sort_by' => ['nullable', 'array:column,direction', 'size:2'],
             'sort_by.column' => ['string', Rule::in(['latin_name', 'cyrillic_name'])],
-            'sort_by.direction' => ['string', Rule::in(['asc', 'desc'])]
+            'sort_by.direction' => ['string', Rule::in(['asc', 'desc'])],
+            'has_dorm_room' => ['nullable', 'boolean'],
         ];
     }
 

@@ -46,6 +46,11 @@ class StudentController extends Controller
         if ($countries = $request->get('countries')) {
             $builder->ofCountries($countries);
         }
+        if ($request->has('has_dorm_room')) {
+            $request->boolean('has_dorm_room')
+                ? $builder->has('dormRoom')
+                : $builder->doesntHave('dormRoom');
+        }
         if ($sortBy = $request->get('sort_by')) {
             $builder->orderBy($sortBy['column'], $sortBy['direction']);
         }
