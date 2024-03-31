@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             GenderSeeder::class,
             SettlementStatusSeeder::class,
+            StudentPaymentTypeSeeder::class,
         ]);
         User::factory(15)->create();
         Country::factory(30)->create();
