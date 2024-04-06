@@ -8,10 +8,12 @@ use App\Models\Dormitory;
 use App\Models\Role;
 use App\Models\SettlementHistory;
 use App\Models\Student;
+use App\Models\StudentPayment;
 use App\Models\User;
 use App\Policies\DormitoryPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\SettlementHistoryPolicy;
+use App\Policies\StudentPaymentPolicy;
 use App\Policies\StudentPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -29,6 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         Student::class => StudentPolicy::class,
         Dormitory::class => DormitoryPolicy::class,
         SettlementHistory::class => SettlementHistoryPolicy::class,
+        StudentPayment::class => StudentPaymentPolicy::class,
     ];
 
     /**

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\V1\StudentController;
+use App\Http\Controllers\Api\V1\StudentPaymentController;
 use App\Models\Student;
+use App\Models\StudentPayment;
 
 Route::middleware(['auth:sanctum'])->as('students.')->prefix('students')->group(function () {
 
@@ -25,4 +27,7 @@ Route::middleware(['auth:sanctum'])->as('students.')->prefix('students')->group(
 
     Route::patch('{student}/evict', [StudentController::class, 'evict'])
         ->can('update', Student::class)->name('evict');
+
+    Route::post('payments-import', [StudentPaymentController::class, 'import'])->
+    can('import', StudentPayment::class)->name('paymentsImport');
 });

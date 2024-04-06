@@ -7,7 +7,7 @@ namespace App\Imports;
 use App\Models\Student;
 use App\Models\StudentPayment;
 use App\Models\StudentPaymentType;
-use DragonCode\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\NoReturn;
 use Maatwebsite\Excel\Concerns\ToCollection;

@@ -13,5 +13,6 @@ return [
         'create' => 'Creation',
         'update' => 'Update',
         'delete' => 'Deletion',
+        'import' => 'Import',
     ]
 ];
