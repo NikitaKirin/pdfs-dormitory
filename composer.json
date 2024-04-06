@@ -2,7 +2,7 @@
     "name": "pdfs/dormitory",
     "description": "Server part of the project for the preparatory department of foreign students of UrFU for the accommodation of students in dormitories.",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel-lang/attributes": "^2.5",
         "laravel-lang/http-statuses": "^3.6",
@@ -10,7 +10,8 @@
         "laravel/framework": "^10.10",
         "laravel/pail": "^1.1",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
         "dedoc/scramble": "^0.8.5",

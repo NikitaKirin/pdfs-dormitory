@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->cascadeOnUpdate();
             $table->decimal('value')->default(0.00);
             $table->string('comment')->nullable();
+            $table->unique(['student_payment_type_id', 'student_id']);
         });
     }
 

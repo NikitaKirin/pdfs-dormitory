@@ -9,9 +9,9 @@ class StudentPaymentTypeSeeder extends Seeder
 {
 
     private array $types = [
-        ['title' => 'Education'],
-        ['title' => 'Communal'],
-        ['title' => 'Security deposit']
+        ['title' => \App\Enums\StudentPaymentTypeEnum::Educational->value],
+        ['title' => \App\Enums\StudentPaymentTypeEnum::Communal->value],
+        ['title' => \App\Enums\StudentPaymentTypeEnum::SecurityDeposit->value]
     ];
 
     public function run(): void
