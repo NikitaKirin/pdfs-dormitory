@@ -19,6 +19,10 @@ class StudentPayment extends Model
         'student_payment_type_id',
     ];
 
+    protected $casts = [
+        'value' => 'int',
+    ];
+
     protected function value(): Attribute
     {
         return Attribute::make(

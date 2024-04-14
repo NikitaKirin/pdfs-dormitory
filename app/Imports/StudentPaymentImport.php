@@ -41,7 +41,7 @@ class StudentPaymentImport implements ToCollection, WithChunkReading, ShouldQueu
                 return [
                     'student_id' => $studentId,
                     'student_payment_type_id' => $paymentType->id,
-                    'value' => is_numeric($value) ? $value : 0.0,
+                    'value' => is_numeric($value) ? ($value * 100) : 0, // todo: using mutator from model
                     'comment' => is_numeric($value) ? '' : $value,
                 ];
             });
