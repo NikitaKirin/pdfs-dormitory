@@ -16,4 +16,24 @@ class StudentPaymentPolicy
     {
         return $user->hasPermission('import', StudentPayment::class);
     }
+
+    public function view(User $user): bool
+    {
+        return $user->hasPermission('view', StudentPayment::class);
+    }
+
+    public function create(User $user): bool
+    {
+        return $user->hasPermission('create', StudentPayment::class);
+    }
+
+    public function update(User $user): bool
+    {
+        return $user->hasPermission('update', StudentPayment::class);
+    }
+
+    public function delete(User $user): bool
+    {
+        return $user->hasPermission('delete', StudentPayment::class);
+    }
 }

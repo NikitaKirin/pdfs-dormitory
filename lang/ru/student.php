@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Enums\StudentPaymentTypeEnum;
+
 return [
     'messages' => [
         'settle' => [
@@ -13,5 +15,12 @@ return [
             'fail' => 'В процессе выселения произошла ошибка',
         ],
         'accommodated' => 'Студент уже поселен',
+    ],
+    'payments' => [
+        'types' => [
+            StudentPaymentTypeEnum::Educational->value => 'Обучение',
+            StudentPaymentTypeEnum::Communal->value => 'Коммунальные платежи',
+            StudentPaymentTypeEnum::SecurityDeposit->value => 'Обеспечительный платеж',
+        ],
     ],
 ];

@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\DTO\Student\CreateStudentData;
+use App\DTO\Student\CreateStudentPaymentData;
 use App\DTO\Student\UpdateStudentData;
+use App\DTO\Student\UpdateStudentPaymentData;
 use App\Events\Student\StudentEvicted;
 use App\Events\Student\StudentSettled;
 use App\Http\Controllers\Controller;
@@ -11,22 +15,34 @@ use App\Http\Requests\Api\V1\Student\IndexStudentRequest;
 use App\Http\Requests\Api\V1\Student\SettleStudentRequest;
 use App\Http\Requests\Api\V1\Student\StoreStudentRequest;
 use App\Http\Requests\Api\V1\Student\UpdateStudentRequest;
+use App\Http\Requests\Api\V1\StudentPayment\ImportStudentPaymentRequest;
+use App\Http\Requests\Api\V1\StudentPayment\StoreStudentPaymentRequest;
+use App\Http\Requests\Api\V1\StudentPayment\UpdateStudentPaymentRequest;
+use App\Http\Requests\Api\V1\StudentPaymentType\IndexStudentPaymentTypeRequest;
+use App\Http\Resources\V1\Student\StudentPaymentResource;
+use App\Http\Resources\V1\Student\StudentPaymentResourceCollection;
 use App\Http\Resources\V1\Student\StudentResource;
 use App\Http\Resources\V1\Student\StudentResourceCollection;
+use App\Http\Resources\V1\StudentPaymentType\StudentPaymentTypeResourceCollection;
+use App\Imports\StudentPaymentImport;
+use App\Jobs\User\NotifyUserOfCompletedStudentPaymentImport;
 use App\Models\DormRoom;
 use App\Models\Student;
+use App\Models\StudentPayment;
+use App\Models\StudentPaymentType;
 use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
-
     public function __construct(
         protected readonly StudentService $studentService
-    ) {}
+    ) {
+    }
 
     /**
      * @param IndexStudentRequest $request

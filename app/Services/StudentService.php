@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\DTO\Student\CreateStudentData;
+use App\DTO\Student\CreateStudentPaymentData;
 use App\DTO\Student\UpdateStudentData;
+use App\DTO\Student\UpdateStudentPaymentData;
 use App\Models\Student;
+use App\Models\StudentPayment;
 
 class StudentService
 {
